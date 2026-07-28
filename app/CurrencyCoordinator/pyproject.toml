@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "CurrencyCoordinator"
+version = "0.1.0"
+description = "AgentCore Runtime Application using Strands SDK"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "aws-opentelemetry-distro",
+    "bedrock-agentcore >= 1.9.1",
+    "botocore[crt] >= 1.35.0",
+    "strands-agents >= 1.15.0",
+    "a2a-sdk >= 1.1.2",
+    # Entra tokens for the Foundry A2A peer; boto3 reads the service
+    # principal from AWS Secrets Manager (see coordinator/entra_auth.py).
+    "azure-identity >= 1.25.3",
+    "boto3 >= 1.40",
+    "httpx >= 0.28",
+    "pydantic >= 2.10",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
