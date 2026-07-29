@@ -118,35 +118,35 @@ does not grant the data-plane `agents/write` action.
 
 ## Run the credential-free local checks
 
-Clone the repository and use an isolated environment. The related benchmark
-repositories expose the same console-script names, so invoking modules from
-the intended checkout avoids accidentally running a sibling clone.
+Clone the repository and install into the current user's Python environment.
+The related benchmark repositories expose the same console-script names, so
+invoking modules from the intended checkout avoids accidentally running a
+sibling clone.
 
 ```bash
 git clone https://github.com/xbill9/bedrock-foundry-a2a-currency.git
 cd bedrock-foundry-a2a-currency
 
-python3 -m venv .venv
-.venv/bin/pip install -e ".[dev]"
-.venv/bin/pip install -r requirements.txt
+pip3 install --user --break-system-packages -e ".[dev]"
+pip3 install --user --break-system-packages -r requirements.txt
 
-PYTHONPATH=. .venv/bin/python -m pytest -q
+PYTHONPATH=. python3 -m pytest -q
 ```
 
-The July 29 build passed 65 tests. These cover the `Decimal` domain logic,
+The July 29 build passed 66 tests. These cover the `Decimal` domain logic,
 MCP subprocess transport, failure policies, Entra credential parsing, and a
 Foundry-shaped authenticated A2A v1.0 server.
 
 Try the three modes with deterministic fixture rates:
 
 ```bash
-PYTHONPATH=. .venv/bin/python -m coordinator.cli \
+PYTHONPATH=. python3 -m coordinator.cli \
   100 USD EUR --mode mcp_only
 
-PYTHONPATH=. .venv/bin/python -m coordinator.cli \
+PYTHONPATH=. python3 -m coordinator.cli \
   100 USD EUR --mode a2a_only
 
-PYTHONPATH=. .venv/bin/python -m coordinator.cli \
+PYTHONPATH=. python3 -m coordinator.cli \
   100 USD EUR --mode verified --transport mcp-stdio --json
 ```
 
@@ -185,7 +185,7 @@ The local path uses your ambient Azure CLI credential:
 ```bash
 CURRENCY_RATE_PROVIDER=frankfurter \
 CURRENCY_FOUNDRY_A2A_ENDPOINT="$CURRENCY_FOUNDRY_A2A_ENDPOINT" \
-PYTHONPATH=. .venv/bin/python -m coordinator.cli \
+PYTHONPATH=. python3 -m coordinator.cli \
   100 USD EUR \
   --mode verified \
   --transport mcp-stdio \

@@ -16,9 +16,11 @@ system.
 
 ## Prerequisites
 
-- Python 3.13, `pip3 install --user -e ".[dev]"` from the repo root, and
-  `pip3 install --user -r requirements.txt` for tiers 3–5.
-- `uv` (for the ADK agent's own venv).
+- Python 3.13, `pip3 install --user --break-system-packages -e ".[dev]"`
+  from the repo root, and
+  `pip3 install --user --break-system-packages -r requirements.txt` for tiers 3–5.
+- Docker for tiers 1–2. The ADK image keeps Google's SDK dependency set
+  separate from the AWS and Azure coordinator dependencies.
 - A Gemini API key exported as `GOOGLE_API_KEY` (tiers 1–2). Keep
   `GOOGLE_GENAI_USE_VERTEXAI` unset.
 - `az login` with the **Foundry Agent Consumer** role on the Foundry project
@@ -38,7 +40,7 @@ pytest
 currency-benchmark 100 USD EUR --mode verified --transport mcp-stdio
 ```
 
-Expect 61 tests passing and a fixture-labeled quote
+Expect 66 tests passing and a fixture-labeled quote
 (`mcp-stdio:deterministic-fixture`). Anything failing here is a code
 regression, not an integration problem.
 
@@ -51,15 +53,20 @@ than after a deployment.
 
 ## Tier 1 — live local stack
 
-Start the benchmark ADK agent (serves A2A v1.0 on port 10001; its MCP rate
-server URL defaults to port 8081):
+Build and start the benchmark ADK image. It serves A2A v1.0 on host port 10001
+and runs its MCP rate server inside the same container:
 
 ```bash
-cd adk_agent && uv sync
-uv run python mcp_server.py &                 # Frankfurter MCP on :8081
-MCP_SERVER_URL=http://127.0.0.1:8081/mcp \
-  uv run uvicorn agent:a2a_app --host 127.0.0.1 --port 10001 &
-curl -s http://127.0.0.1:10001/health          # {"status":"ok"}
+docker build -t currency-adk-a2a-local ./adk_agent
+docker run --rm --name currency-adk-a2a-local \
+  -p 10001:8080 -e GOOGLE_API_KEY \
+  currency-adk-a2a-local
+```
+
+Then, from another terminal:
+
+```bash
+curl -s http://127.0.0.1:10001/health
 ```
 
 Then, from the repo root, run all three modes against it:

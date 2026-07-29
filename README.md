@@ -95,7 +95,7 @@ are not live financial quotes.
 1. Install the project and development dependencies for your user account:
 
    ```bash
-   pip3 install --user -e ".[dev]"
+   pip3 install --user --break-system-packages -e ".[dev]"
    ```
 
 2. Run the local deterministic tests:

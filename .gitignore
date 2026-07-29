@@ -19,15 +19,12 @@ agentcore/aws-targets.json
 agentcore/.cli/logs/
 cdk.out/
 # Build artifacts synced into the app bundle by infra/sync_app.sh
-app/CurrencyCoordinator/.venv/
 app/CurrencyCoordinator/coordinator/
 app/CurrencyCoordinator/mcp_server/
 # Build artifacts synced into the Foundry agent bundle by infra/sync_app.sh
 foundry_agent/coordinator/
 foundry_agent/mcp_server/
 foundry_agent/.azure/
-adk_agent/.venv/
 adk_agent/agent.log
 node_modules/
 *.log
-

@@ -38,3 +38,17 @@ def test_coordinator_prompt_classifies_the_foundry_peer_as_live() -> None:
     ).read_text(encoding="utf-8")
 
     assert "'hosted-foundry-a2a' is live" in entrypoint
+
+
+def test_adk_image_uses_system_python_and_an_explicit_package_layout() -> None:
+    root = Path(__file__).parents[1]
+    dockerfile = (root / "adk_agent" / "Dockerfile").read_text(encoding="utf-8")
+    start = (root / "adk_agent" / "start.sh").read_text(encoding="utf-8")
+    manifest = tomllib.loads(
+        (root / "adk_agent" / "pyproject.toml").read_text(encoding="utf-8")
+    )
+
+    assert "pip3 install --no-cache-dir ." in dockerfile
+    assert "python3 mcp_server.py" in start
+    assert "python3 -m uvicorn" in start
+    assert manifest["tool"]["setuptools"]["py-modules"] == ["agent", "mcp_server"]

@@ -26,18 +26,20 @@ dropping A2UI lets this agent serve A2A v1.0.
 
 ## Run
 
-The agent needs `GOOGLE_API_KEY` (or `GEMINI_API_KEY`) in the environment or a
-`.env` file, and a running MCP exchange-rate server (default
-`http://127.0.0.1:8081/mcp`; override with `MCP_SERVER_URL`). The
-currency-agent repository's FastMCP server provides live Frankfurter rates:
+The agent needs `GOOGLE_API_KEY` (or `GEMINI_API_KEY`) in the environment.
+Build and run it as a container so its Google SDK dependencies remain separate
+from the AWS and Azure SDKs used by the coordinator. The image includes the MCP
+exchange-rate server and defaults it to `http://127.0.0.1:8081/mcp`:
 
 ```bash
-cd ~/currency-agent && MCP_PORT=8081 uv run mcp-server/server.py &
-cd adk_agent && uv sync
-MCP_SERVER_URL=http://127.0.0.1:8081/mcp uv run uvicorn agent:a2a_app --host 127.0.0.1 --port 10001
+docker build -t currency-adk-a2a-local ./adk_agent
+docker run --rm --name currency-adk-a2a-local \
+  -p 10001:8080 \
+  -e GOOGLE_API_KEY \
+  currency-adk-a2a-local
 ```
 
-Verify with:
+In another terminal, verify with:
 
 ```bash
 curl http://127.0.0.1:10001/health

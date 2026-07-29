@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "benchmark-adk-agent"
 version = "0.1.0"
@@ -12,3 +16,6 @@ dependencies = [
     "fastmcp>=3.4.4",
     "httpx>=0.28.1",
 ]
+
+[tool.setuptools]
+py-modules = ["agent", "mcp_server"]

@@ -21,10 +21,9 @@ file defines a Starlette ASGI app with the chosen Agent framework SDK running wi
 
 # Developing locally
 
-If installation was successful, a virtual environment is already created with dependencies installed.
+Install the application into the current user's Python environment:
 
-Activate the environment with `source .venv/bin/activate` on macOS/Linux, `.venv\Scripts\activate.bat` in Windows
-Command Prompt, or `.\.venv\Scripts\activate.ps1` in Windows PowerShell.
+`pip3 install --user --break-system-packages -e .`
 
 `agentcore dev` will start a local server on 0.0.0.0:8080.
 
