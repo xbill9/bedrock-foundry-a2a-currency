@@ -3,6 +3,7 @@ title: Can Amazon Bedrock AgentCore Talk to Microsoft Foundry over A2A?
 published: true
 series: A2A
 tags: aws, azure, aiagents, a2a
+cover_image: https://raw.githubusercontent.com/xbill9/bedrock-foundry-a2a-currency/main/devto-cover.png
 ---
 
 I wanted to test one specific path:
