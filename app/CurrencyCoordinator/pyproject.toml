@@ -17,6 +17,8 @@ dependencies = [
     # Entra tokens for the Foundry A2A peer; boto3 reads the service
     # principal from AWS Secrets Manager (see coordinator/entra_auth.py).
     "azure-identity >= 1.25.3",
+    # azure.identity.aio delegates to azure-core's optional aiohttp transport.
+    "aiohttp == 3.13.3",
     "boto3 >= 1.40",
     "httpx >= 0.28",
     "pydantic >= 2.10",

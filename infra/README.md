@@ -107,8 +107,15 @@ Observed deployment result on 2026-07-28:
 Historical baseline: the same benchmark ran hosted on Microsoft Foundry on
 2026-07-27 (all three modes completed; verified mode agreed exactly with
 relative_difference 0; mcp_only elapsed 0.71 s, verified 2.7 s). That result
-is retained as the comparison target for the first AgentCore run; no AWS
-end-to-end result has been recorded yet.
+is retained as the comparison target for the AgentCore runs.
+
+Observed AWS → Foundry smoke result on 2026-07-29: the AgentCore-hosted
+Strands coordinator completed `mcp_only`, `a2a_only`, and `verified` against
+the deployed Foundry peer. For 100 USD → EUR, both live legs returned rate
+`0.87873` and amount `87.87300`; verified mode agreed with no warnings. The
+single observed tool latencies were approximately 3.1 s for the MCP leg and
+18.1 s for the Foundry A2A leg. These are smoke observations, not latency
+distributions.
 
 ## Foundry A2A peer (Azure half)
 

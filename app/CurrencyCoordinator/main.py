@@ -22,7 +22,8 @@ SYSTEM_PROMPT = (
     "For every conversion request, call run_currency_benchmark. Never calculate or "
     "verify arithmetic yourself. Determine whether results are live only from each "
     "returned source field: sources containing 'deterministic-fixture' or "
-    "'hosted-local' are non-live; do not label other sources as fixtures. Preserve "
+    "'hosted-local' are non-live; all other source labels are live. In particular, "
+    "'hosted-foundry-a2a' is live and does not contain 'hosted-local'. Preserve "
     "the returned amounts, rates, timestamps, failure labels, and warnings exactly. "
     "Ask for amount, source currency, or target currencies only when missing."
 )

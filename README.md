@@ -221,9 +221,13 @@ produce one set of numbers per peer.
   server (`tests/test_a2a_foundry_shape.py`) and against the real MCP client
   path; the MCP stdio server answers the official MCP SDK, not only this
   repository's client.
-- Not yet measured: the Foundry peer deployed and called from AWS, the
-  AgentCore-hosted path end to end, token usage, cloud cost, repeated
-  warm/cold hosted distributions, or benchmark trace-ID export.
+- Observed on 2026-07-29: the Foundry peer was deployed in Azure and called
+  from the AgentCore-hosted AWS coordinator. All three hosted modes completed.
+  For the 100 USD → EUR smoke case, MCP and Foundry both returned rate
+  `0.87873` and amount `87.87300`; verified mode agreed with no warnings.
+- Not yet measured: token usage, cloud cost, repeated warm/cold hosted
+  distributions, the full 38-case AWS → Foundry matrix, or benchmark trace-ID
+  export.
 
 ## Full benchmark definition of done
 
